@@ -164,6 +164,83 @@ server.route([
             });
         }
     },
+    {
+        method: 'PUT',
+        path: '/leds',
+        config: {
+            validate: {
+                payload: {
+                    red: Joi.number().integer().min(0).max(255).required(),
+                    green: Joi.number().integer().min(0).max(255).required(),
+                    blue: Joi.number().integer().min(0).max(255).required()
+                }
+            }
+        },
+        handler: function(request, reply) {
+            setColor(request.payload.red, request.payload.green, request.payload.blue);
+            reply("Success");
+        }
+    },
+    {
+        method: 'PUT',
+        path: '/leds/red',
+        config: {
+            validate: {
+                payload: {
+                    red: Joi.number().integer().min(0).max(255).required()
+                }
+            }
+        },
+        handler: function(request, reply) {
+            setRed(request.payload.red);
+            reply("Success");
+        }
+    },
+    {
+        method: 'PUT',
+        path: '/leds/green',
+        config: {
+            validate: {
+                payload: {
+                    green: Joi.number().integer().min(0).max(255).required()
+                }
+            }
+        },
+        handler: function(request, reply) {
+            setGreen(request.payload.green);
+            reply("Success");
+        }
+    },
+    {
+        method: 'PUT',
+        path: '/leds/blue',
+        config: {
+            validate: {
+                payload: {
+                    blue: Joi.number().integer().min(0).max(255).required()
+                }
+            }
+        },
+        handler: function(request, reply) {
+            setBlue(request.payload.blue);
+            reply("Success");
+        }
+    },
+    {
+        method: 'PUT',
+        path: '/leds/power',
+        config: {
+            validate: {
+                payload: {
+                    power: Joi.number().integer().min(0).max(1).required()
+                }
+            }
+        },
+        handler: function(request, reply) {
+            setColor(currentRed * request.payload.power, currentGreen * request.payload.power, currentBlue * request.payload.power);
+            reply("Success");
+        }
+    }
 ]);
 
 // Serve!
