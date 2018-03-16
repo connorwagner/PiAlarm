@@ -84,9 +84,8 @@ server.route([
         path: '/alarms',
         handler: function(request, reply) {
             conn.query("SELECT * FROM Alarm", function(err, result, fields) {
-                if (err) reply(Boom.badImplementation());
-
-                reply(JSON.stringify(result));
+                if (err) reply(Boom.badRequest());
+                else reply(JSON.stringify(result));
             });
         }
     },
@@ -102,9 +101,8 @@ server.route([
         },
         handler: function(request, reply) {
             conn.query("SELECT * FROM Alarm WHERE ID=" + request.params.alarm, function(err, result, fields) {
-                if (err) reply(Boom.badImplementation());
-
-                reply(result[0]);
+                if (err) reply(Boom.badRequest());
+                else reply(result[0]);
             });
         }
     },
@@ -122,9 +120,8 @@ server.route([
         },
         handler: function(request, reply) {
             conn.query("INSERT INTO Alarm (Days, Hour, Minute) VALUES ('" + request.payload.days + "', " + request.payload.hour + ", " + request.payload.minute + ")", function(err, result, fields) {
-                if (err) reply(Boom.badImplementation());
-
-                reply("Success");
+                if (err) reply(Boom.badRequest());
+                else reply("Success");
             });
         }
     },
@@ -139,10 +136,9 @@ server.route([
             }
         },
         handler: function(request, reply) {
-            conn.query("UPDATE * SET Active=!Active WHERE ID=" + request.params.alarm, function(err, result, fields) {
-                if (err) reply(Boom.badImplementation());
-
-                reply(result[0]);
+            conn.query("UPDATE Alarm SET Active=!Active WHERE ID=" + request.params.alarm, function(err, result, fields) {
+                if (err) reply(Boom.badRequest());
+                else reply("Success");
             });
         }
     },
@@ -158,9 +154,8 @@ server.route([
         },
         handler: function(request, reply) {
             conn.query("DELETE FROM Alarm WHERE ID=" + request.params.alarm, function(err, result, fields) {
-                if (err) reply(Boom.badImplementation());
-
-                reply("Success");
+                if (err) reply(Boom.badRequest());
+                else reply("Success");
             });
         }
     },
