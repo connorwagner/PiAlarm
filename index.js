@@ -56,6 +56,11 @@ function setBlue(blue) {
 var mysql = require('mysql');
 var conn = mysql.createConnection({host: 'localhost', user: 'alarm', password: 'alarmpassword', database: 'Alarm'});
 
+// Query every 5 seconds to ensure that the database connection remains alive
+setInterval(function () {
+    conn.query('SELECT 1');
+}, 5000);
+
 ////////////////////////////////////////////////////////////////
 // Hapi Server
 
@@ -102,7 +107,7 @@ server.route([
         handler: function(request, reply) {
             conn.query("SELECT * FROM Alarm WHERE ID=" + request.params.alarm, function(err, result, fields) {
                 if (err) reply(Boom.badRequest());
-                else reply(result[0]);
+                else reply(JSON.stringify(result[0]));
             });
         }
     },
@@ -157,6 +162,34 @@ server.route([
                 if (err) reply(Boom.badRequest());
                 else reply("Success");
             });
+        }
+    },
+    {
+        method: 'GET',
+        path: '/leds',
+        handler: function(request, reply) {
+            reply(JSON.stringify({red: currentRed, green: currentGreen, blue: currentBlue}));
+        }
+    },
+    {
+        method: 'GET',
+        path: '/leds/red',
+        handler: function(request, reply) {
+            reply(currentRed);
+        }
+    },
+    {
+        method: 'GET',
+        path: '/leds/green',
+        handler: function(request, reply) {
+            reply(currentGreen);
+        }
+    },
+    {
+        method: 'GET',
+        path: '/leds/blue',
+        handler: function(request, reply) {
+            reply(currentBlue);
         }
     },
     {
