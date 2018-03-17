@@ -8,10 +8,10 @@ while read -r line; do
     fi
 done <<< "$JOBS"
 
-ALARMS=$(mysql -u alarm -palarmpassword -D Alarm -NB -e "SELECT Days, Hour, Minute FROM Alarm WHERE Active=1")
+ALARMS="$(curl -s "http://localhost:3000/alarms/active" | jq -c '.[]')"
 while read -r line; do
     if [ ! -z "$line" ]; then
-        hour=`awk '{print $2}' <<< "$line"`
+        hour=`jq '.Hour' <<< "$line"`
         hour=$((hour-1))
         swapDay=false
         AMPM="AM"
@@ -26,11 +26,11 @@ while read -r line; do
                 hour=$((hour-12))
             fi
         fi
-        minute=`awk '{print $3}' <<< "$line"`
+        minute=`jq '.Minute' <<< "$line"`
         if [ $minute -le 9 ]; then
             minute="0$minute"
         fi
-        days=`awk '{print $1}' <<< "$line"`
+        days=`jq -r '.Days' <<< "$line"`
         for (( i=0; i<${#days}; i++ )); do
             day="${days:$i:1}";
             case "$day" in
