@@ -1,42 +1,28 @@
 // Utilities and helpers
-const fs = require('fs');
-
-function readFile(fileName) {
-    try {
-        return fs.readFileSync(__dirname + "/games/" + fileName, "utf8");
-    } catch (err) {
-        return false;
-    }
-}
-
-function writeFile(fileName, contents) {
-    fs.writeFileSync(__dirname + "/games/" + fileName, contents);
-}
-
-function deleteFile(fileName) {
-    fs.unlinkSync(__dirname + "/games/" + fileName);
-}
-
 var Gpio = require('pigpio').Gpio;
 
 var ledRed = new Gpio(27, {mode: Gpio.OUTPUT});
 var ledGreen = new Gpio(17, {mode: Gpio.OUTPUT});
 var ledBlue = new Gpio(22, {mode: Gpio.OUTPUT});
+var ledWhite = new Gpio(23, {mode: Gpio.OUTPUT});
 
 var currentRed = 0;
 var currentGreen = 0;
 var currentBlue = 0;
+var currentWhite = 0;
 
-function setColor(red, green, blue) {
-    if (red < 0 || green < 0 || blue < 0 || red > 255 || green > 255 || blue > 255) return false;
+function setColor(red, green, blue, white) {
+    if (red < 0 || green < 0 || blue < 0 || white < 0 || red > 255 || green > 255 || blue > 255 || white > 255) return false;
 
     currentRed = red;
     currentGreen = green;
     currentBlue = blue;
+    currentWhite = white;
 
     /*ledRed.pwmWrite(red);
     ledGreen.pwmWrite(green);
-    ledBlue.pwmWrite(blue);*/
+    ledBlue.pwmWrite(blue);
+    ledWhite.pwmWrite(white);*/
 
     return true;
 }
@@ -168,7 +154,7 @@ server.route([
         method: 'GET',
         path: '/leds',
         handler: function(request, reply) {
-            reply(JSON.stringify({red: currentRed, green: currentGreen, blue: currentBlue}));
+            reply(JSON.stringify({red: currentRed, green: currentGreen, blue: currentBlue, white: currentWhite}));
         }
     },
     {
@@ -193,6 +179,13 @@ server.route([
         }
     },
     {
+        method: 'GET',
+        path: '/leds/white',
+        handler: function(request, reply) {
+            reply(currentWhite);
+        }
+    },
+    {
         method: 'PUT',
         path: '/leds',
         config: {
@@ -200,7 +193,8 @@ server.route([
                 payload: {
                     red: Joi.number().integer().min(0).max(255).required(),
                     green: Joi.number().integer().min(0).max(255).required(),
-                    blue: Joi.number().integer().min(0).max(255).required()
+                    blue: Joi.number().integer().min(0).max(255).required(),
+                    white: Joi.number().integer().min(0).max(255).required()
                 }
             }
         },
@@ -256,6 +250,21 @@ server.route([
     },
     {
         method: 'PUT',
+        path: '/leds/white',
+        config: {
+            validate: {
+                payload: {
+                    white: Joi.number().integer().min(0).max(255).required()
+                }
+            }
+        },
+        handler: function(request, reply) {
+            setWhite(request.payload.white);
+            reply("Success");
+        }
+    },
+    {
+        method: 'PUT',
         path: '/leds/power',
         config: {
             validate: {
@@ -265,7 +274,7 @@ server.route([
             }
         },
         handler: function(request, reply) {
-            setColor(currentRed * request.payload.power, currentGreen * request.payload.power, currentBlue * request.payload.power);
+            setColor(currentRed * request.payload.power, currentGreen * request.payload.power, currentBlue * request.payload.power, currentWhite * request.payload.power);
             reply("Success");
         }
     }
