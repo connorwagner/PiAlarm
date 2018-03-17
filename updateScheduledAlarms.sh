@@ -42,7 +42,7 @@ while read -r line; do
                 S) $swapDay && day="Friday" || day="Saturday" ;;
                 U) $swapDay && day="Saturday" || day="Sunday" ;;
             esac
-            echo "echo 'python3 /home/pi/PiAlarm/startAlarm.py' | at $hour:$minute $AMPM $day > /dev/null 2>&1"
+            echo 'python3 /home/pi/PiAlarm/startAlarm.py' | at $hour:$minute $AMPM $day > /dev/null 2>&1
         done
     fi
 done <<< "$ALARMS"
