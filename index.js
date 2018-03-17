@@ -82,6 +82,16 @@ server.route([
     },
     {
         method: 'GET',
+        path: '/alarms/active',
+        handler: function(request, reply) {
+            conn.query("SELECT * FROM Alarm WHERE Active=1", function(err, result, fields) {
+                if (err) reply(Boom.badRequest());
+                else reply(JSON.stringify(result));
+            });
+        }
+    },
+    {
+        method: 'GET',
         path: '/alarms/{alarm}',
         config: {
             validate: {
