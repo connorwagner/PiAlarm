@@ -48,5 +48,8 @@
             <input type='submit'>
         </form>
     </div>
+    <div id="stopAlarm">
+        <h1><a href='stopTone.php'>Stop a sounding alarm</a></h1>
+    </div>
 </body>
 </html>
