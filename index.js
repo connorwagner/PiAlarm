@@ -47,6 +47,9 @@ setInterval(function () {
     conn.query('SELECT 1');
 }, 5000);
 
+const shell = require('shelljs');
+shell.exec('./home/pi/PiAlarm/connectBluetooth.sh')
+
 ////////////////////////////////////////////////////////////////
 // Hapi Server
 
@@ -292,6 +295,7 @@ server.route([
         method: 'POST',
         path: '/speaker',
         handler: function(request, reply) {
+            shell.exec('./home/pi/PiAlarm/bash/soundAlarm.js');
             reply("Success");
         }
     },
