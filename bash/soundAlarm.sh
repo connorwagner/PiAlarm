@@ -1,5 +1,7 @@
 #!/bin/bash
 
-/home/pi/PiAlarm/bash/connectBluetooth.sh
+echo $$
 
-aplay /home/pi/PiAlarm/alarm.wav
+while [ 1 ]; do
+    aplay /home/pi/PiAlarm/alarm.wav 2> /dev/null
+done
