@@ -287,6 +287,20 @@ server.route([
             setColor(currentRed * request.payload.power, currentGreen * request.payload.power, currentBlue * request.payload.power, currentWhite * request.payload.power);
             reply("Success");
         }
+    },
+    {
+        method: 'POST',
+        path: '/speaker',
+        handler: function(request, reply) {
+            reply("Success");
+        }
+    },
+    {
+        method: 'DELETE',
+        path: '/speaker',
+        handler: function(request, reply) {
+            reply("Success");
+        }
     }
 ]);
 

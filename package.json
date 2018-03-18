@@ -1,5 +1,5 @@
 {
-  "name": "PiDayServer",
+  "name": "PiAlarm",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/connorwagner/PiDayServer.git"
+    "url": "git+https://github.com/connorwagner/PiAlarm.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/connorwagner/PiDayServer/issues"
+    "url": "https://github.com/connorwagner/PiAlarm/issues"
   },
-  "homepage": "https://github.com/connorwagner/PiDayServer#readme",
+  "homepage": "https://github.com/connorwagner/PiAlarm#readme",
   "dependencies": {
     "boom": "^5.2.0",
     "hapi": "^16.6.2",
