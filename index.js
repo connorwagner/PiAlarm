@@ -48,7 +48,6 @@ setInterval(function () {
 }, 5000);
 
 const shell = require('shelljs');
-shell.exec('./home/pi/PiAlarm/connectBluetooth.sh')
 
 ////////////////////////////////////////////////////////////////
 // Hapi Server
@@ -295,7 +294,23 @@ server.route([
         method: 'POST',
         path: '/speaker',
         handler: function(request, reply) {
-            shell.exec('./home/pi/PiAlarm/bash/soundAlarm.js');
+            shell.exec('/home/pi/PiAlarm/bash/soundAlarm.sh');
+            reply("Success");
+        }
+    },
+    {
+        method: 'PUT',
+        path: '/speaker',
+        config: {
+            validate: {
+                payload: {
+                    volume: Joi.number().integer().min(0).max(100).required()
+                }
+            }
+        },
+        handler: function(request, reply) {
+            shell.exec('/home/pi/PiAlarm/bash/connectBluetooth.sh');
+            shell.exec('pactl set-sink-volume @DEFAULT_SINK@ ' + request.payload.volume + '%');
             reply("Success");
         }
     },
