@@ -16,6 +16,14 @@ The system includes an LED strip which will simulate a sunrise for an hour befor
     * Edit `/etc/nginx/sites-enabled/default`
         * Add `index.php` to the line that resembles `index index.html index.htm;`
         * Uncomment the following lines
+* Configure MySQL
+   * Create database `Alarm`
+      * Create table `Alarm` with fields
+         * `ID` INT AUTO_INCREMENT (PK)
+         * `Days` VARCHAR(7)
+         * `Hour` INT
+         * `Minute` INT
+         * `Active` BOOLEAN
 ```
 location ~ \.php$ {
     include snippets/fastcgi-php.conf;
