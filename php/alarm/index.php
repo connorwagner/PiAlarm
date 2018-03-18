@@ -48,6 +48,13 @@
             <input type='submit'>
         </form>
     </div>
+    <div id="changeVolume">
+        <h1>Change Alarm Volume</h1>
+        <form action='changeVolume.php' method='get'>
+            <label for='volume'>Volume (Percent): </label>
+            <input type='number' min='0' max='100' name='volume'>
+            <input type='submit'>
+    </div>
     <div id="stopAlarm">
         <h1><a href='stopTone.php'>Stop a sounding alarm</a></h1>
     </div>
