@@ -24,6 +24,8 @@ The system includes an LED strip which will simulate a sunrise for an hour befor
          * `Hour` INT
          * `Minute` INT
          * `Active` BOOLEAN
+* Configure alarm tone
+   * Place a `.wav` file in the root directory of the project entitled `alarm.wav`
 ```
 location ~ \.php$ {
     include snippets/fastcgi-php.conf;
