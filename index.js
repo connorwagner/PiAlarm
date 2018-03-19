@@ -295,7 +295,6 @@ server.route([
         method: 'POST',
         path: '/speaker',
         handler: function(request, reply) {
-            shell.exec('/home/pi/PiAlarm/bash/connectBluetooth.sh', {silent: true});
             shell.exec('/home/pi/PiAlarm/bash/soundAlarm.sh', {silent: true, async: true});
             reply("Success");
         }
@@ -311,8 +310,7 @@ server.route([
             }
         },
         handler: function(request, reply) {
-            shell.exec('/home/pi/PiAlarm/bash/connectBluetooth.sh', {silent: true});
-            shell.exec('pactl set-sink-volume @DEFAULT_SINK@ ' + request.payload.volume + '%', {silent: true, async: true});
+            shell.exec('/home/pi/PiAlarm/bash/changeVolume.sh ' + request.payload.volume, {silent: true, async: true});
             reply("Success");
         }
     },
@@ -320,7 +318,8 @@ server.route([
         method: 'DELETE',
         path: '/speaker',
         handler: function(request, reply) {
-            shell.exec('pgrep soundAlarm | xargs kill', {silent: true, async: true});
+            shell.exec('pgrep soundAlarm | xargs kill', {silent: true});
+            shell.exec('pgrep aplay | xargs kill', {silent: true, async: true});
             reply("Success");
         }
     }
