@@ -50,6 +50,9 @@ setInterval(function () {
 const shell = require('shelljs');
 var pid = "0";
 
+var sha1 = require('sha1');
+var randomstring = require('randomstring');
+
 ////////////////////////////////////////////////////////////////
 // Hapi Server
 
@@ -320,6 +323,89 @@ server.route([
         handler: function(request, reply) {
             shell.exec('/home/pi/PiAlarm/bash/stopAlarm.sh', {silent: true, async: true});
             reply("Success");
+        }
+    },
+    {
+        method: 'GET',
+        path: '/user/{username}',
+        config: {
+            validate: {
+                params: {
+                    username: Joi.string().min(3).max(15).required()
+                },
+                query: {
+                    password: Joi.string().required()
+                }
+            }
+        },
+        handler: function(request, reply) {
+            conn.query("SELECT Token FROM User WHERE Username='" + request.params.username + "' AND Password='" + sha1(request.query.password) + "'", function(err, result, fields) {
+                if (err) reply(Boom.badRequest());
+                else reply(result[0].Token);
+            });
+        }
+    },
+    {
+        method: 'POST',
+        path: '/user',
+        config: {
+            validate: {
+                payload: {
+                    username: Joi.string().min(3).max(15).required(),
+                    password: Joi.string().required()
+                }
+            }
+        },
+        handler: function(request, reply) {
+            conn.query("INSERT INTO User (Username, Password, Token) VALUES ('" + request.payload.username + "', '" + sha1(request.payload.password) + "', '" + randomstring.generate() + "')", function(err, result, fields) {
+                if (err) reply(Boom.badRequest());
+                else reply("Success");
+            });
+        }
+    },
+    {
+        method: 'PUT',
+        path: '/user/{username}',
+        config: {
+            validate: {
+                params: {
+                    username: Joi.string().min(3).max(15).required()
+                },
+                payload: {
+                    oldPassword: Joi.string().required(),
+                    newPassword: Joi.string().required()
+                }
+            }
+        },
+        handler: function(request, reply) {
+            conn.query("SELECT Password FROM User WHERE Username='" + request.params.username + "'", function(err, result, fields) {
+                if (err) reply(Boom.badRequest());
+                else if (result[0].Password === sha1(request.payload.oldPassword)) {
+                    conn.query("UPDATE User SET Password='" + sha1(request.payload.newPassword) + "', Token='" + randomstring.generate() + "' WHERE Username='" + request.params.username + "'", function(err, result, fields) {
+                        if (err) reply(Boom.badRequest());
+                        else reply("Success");
+                    });
+                } else {
+                    reply("Invalid password");
+                }
+            });
+        }
+    },
+    {
+        method: 'GET',
+        path: '/token/{token}',
+        config: {
+            validate: {
+                params: {
+                    token: Joi.string().required()
+                }
+            }
+        },
+        handler: function(request, reply) {
+            conn.query("SELECT Username FROM User WHERE Token='" + request.params.token + "'", function(err, result, fields) {
+                if (err) reply(Boom.badRequest());
+                else reply(result[0].Username);
+            });
         }
     }
 ]);

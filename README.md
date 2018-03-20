@@ -27,6 +27,11 @@ location ~ \.php$ {
          * `Hour` INT
          * `Minute` INT
          * `Active` BOOLEAN
+      * Create table `User` with fields
+         * `ID` INT AUTO_INCREMENT (PK)
+         * `Username` VARCHAR(150)
+         * `Password` VARCHAR(150)
+         * `Token` VARCHAR(150)
 * Configure alarm tone
     * Place `.wav` or `.mp3` files in the `alarmTones` subdirectory; one of these files will be chosen at random each time the alarm sounds
 * Set up bluetooth speaker connection

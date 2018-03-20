@@ -5,9 +5,7 @@
 </head>
 <body>
 <?php
-    // Logging setup
-    ini_set("log_errors", 1);
-    ini_set("error_log", "/tmp/php.log");
+    include $_SERVER["DOCUMENT_ROOT"] . '/helpers/auth.php';
 
     $urlPrefix = "http://localhost:3000/";
 
@@ -57,7 +55,10 @@
             <input type='submit'>
     </div>
     <div id="stopAlarm">
-        <h1><a href='stopTone.php'>Stop an alarm</a></h1>
+        <h1><a href='stopTone.php'>Stop an Alarm</a></h1>
+    </div>
+    <div id="startAlarm">
+        <h1><a href='startTone.php'>Start an Alarm</a></h1>
     </div>
 </body>
 </html>
