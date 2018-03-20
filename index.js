@@ -11,6 +11,9 @@ var currentGreen = 0;
 var currentBlue = 0;
 var currentWhite = 0;
 
+var lamp = new Gpio(18, {mode: Gpio.OUTPUT});
+var currentLamp = 0;
+
 function setColor(red, green, blue, white) {
     if (red < 0 || green < 0 || blue < 0 || white < 0 || red > 255 || green > 255 || blue > 255 || white > 255) return false;
 
@@ -37,6 +40,20 @@ function setGreen(green) {
 
 function setBlue(blue) {
     return setColor(currentRed, currentGreen, blue);
+}
+
+function setLampPower(power) {
+    //lamp.pwmWrite(255 * power);
+
+    currentLamp = power;
+
+    return true;
+}
+
+function toggleLamp() {
+    currentLamp = (currentLamp == 0) ? 1 : 0;
+
+    return setLampPower(currentLamp);
 }
 
 var mysql = require('mysql');
@@ -291,6 +308,24 @@ server.route([
         },
         handler: function(request, reply) {
             setColor(currentRed * request.payload.power, currentGreen * request.payload.power, currentBlue * request.payload.power, currentWhite * request.payload.power);
+            reply("Success");
+        }
+    },
+    {
+        method: 'PUT',
+        path: '/lamp/power',
+        config: {
+            validate: {
+                payload: {
+                    power: Joi.number().integer().min(0).max(1)
+                }
+            }
+        },
+        handler: function(request, reply) {
+            if (request.payload.hasOwnProperty('power'))
+                setLampPower(request.payload.power);
+            else
+                toggleLampPower();
             reply("Success");
         }
     },
