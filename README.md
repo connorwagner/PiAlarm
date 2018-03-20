@@ -7,15 +7,18 @@ The system includes an LED strip which will simulate a sunrise for an hour befor
 ## Setup
 * Scheduled tasks
     * Add to the superuser's cron jobs (`sudo crontab -e`)
-        * `@reboot /absolute/path/to/project/startServer.sh`
-        * `*/5 * * * * /absolute/path/to/project/updateScheduledAlarms.sh`
-    * Add to the user's cron jobs (`crontab -e`)
-        * `@reboot pulseaudio --start | at now + 1 minute`
-        * `@reboot /home/pi/PiAlarm/connectBluetooth.sh | at now + 2 minutes`
+        * `@reboot /absolute/path/to/project/bash/startServer.sh`
+        * `*/5 * * * * /absolute/path/to/project/bash/updateScheduledAlarms.sh`
 * Configure nginx to use PHP
     * Edit `/etc/nginx/sites-enabled/default`
         * Add `index.php` to the line that resembles `index index.html index.htm;`
         * Uncomment the following lines
+```
+location ~ \.php$ {
+    include snippets/fastcgi-php.conf;
+    fastcgi_pass unix:/var/run/php5-fpm.sock;
+}
+```
 * Configure MySQL
    * Create database `Alarm`
       * Create table `Alarm` with fields
@@ -25,13 +28,7 @@ The system includes an LED strip which will simulate a sunrise for an hour befor
          * `Minute` INT
          * `Active` BOOLEAN
 * Configure alarm tone
-   * Place a `.wav` file in the root directory of the project entitled `alarm.wav`
-```
-location ~ \.php$ {
-    include snippets/fastcgi-php.conf;
-    fastcgi_pass unix:/var/run/php5-fpm.sock;
-}
-```
+    * Place `.wav` or `.mp3` files in the `alarmTones` subdirectory; one of these files will be chosen at random each time the alarm sounds
 * Set up bluetooth speaker connection
     * Give user permission to use bluetooth (`sudo usermod -G bluetooth -a pi`)
     * Give root user permission to use bluetooth (`sudo usermod -G bluetooth -a root`)

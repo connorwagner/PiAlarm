@@ -43,7 +43,7 @@ while read -r line; do
                 U) $swapDay && day="Saturday" || day="Sunday" ;;
             esac
             if [ "$day" == $(date +"%A") ]; then
-                echo 'python3 /home/pi/PiAlarm/startAlarm.py' | at $hour:$minute $AMPM 2> /dev/null
+                echo '/home/pi/PiAlarm/startAlarm.py' | at $hour:$minute $AMPM
             fi
         done
     fi

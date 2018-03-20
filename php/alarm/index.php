@@ -1,6 +1,7 @@
 <html>
 <head>
     <title>Pi Alarm</title>
+    <meta name="viewport" content ="width=device-width,initial-scale=1,user-scalable=yes"/>
 </head>
 <body>
 <?php
@@ -56,7 +57,7 @@
             <input type='submit'>
     </div>
     <div id="stopAlarm">
-        <h1><a href='stopTone.php'>Stop a sounding alarm</a></h1>
+        <h1><a href='stopTone.php'>Stop an alarm</a></h1>
     </div>
 </body>
 </html>
