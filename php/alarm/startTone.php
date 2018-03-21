@@ -1,7 +1,5 @@
 <?php
-    // Logging setup
-    ini_set("log_errors", 1);
-    ini_set("error_log", "/tmp/php.log");
+    include $_SERVER["DOCUMENT_ROOT"] . "/helpers/auth.php";
 
     $urlPrefix = "http://localhost:3000/";
 

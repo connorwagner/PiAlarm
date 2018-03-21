@@ -4,7 +4,7 @@ ini_set("log_errors", 1);
 ini_set("error_log", "/tmp/php.log");
 
 if (!isset($_COOKIE["username"]) || !isset($_COOKIE["token"])) {
-    header("location: " . $_SERVER["DOCUMENT_ROOT"] . "/helpers/login.php");
+    header("location: /helpers/login.php");
 } else {
     $urlPrefix = "http://localhost:3000/";
 
@@ -14,7 +14,7 @@ if (!isset($_COOKIE["username"]) || !isset($_COOKIE["token"])) {
 
     $username = curl_exec($curl);
     if ($username !== $_COOKIE["username"]) {
-        header("location: " . $_SERVER["DOCUMENT_ROOT"] . "/helpers/login.php");
+        header("location: /helpers/login.php");
     }
 }
 ?>

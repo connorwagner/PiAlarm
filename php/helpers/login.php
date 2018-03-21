@@ -30,6 +30,6 @@
         setcookie("username", $_POST["username"], time() + 60 * 60 * 24 * 365, "/");
         setcookie("token", $result, time() + 60 * 60 * 24 * 365, "/");
 
-        header("location: " . $_SERVER["DOCUMENT_ROOT"] . "/index.php");
+        header("location: /index.php");
     }
 ?>
