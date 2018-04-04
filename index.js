@@ -22,28 +22,32 @@ function setColor(red, green, blue, white) {
     currentBlue = blue;
     currentWhite = white;
 
-    /*ledRed.pwmWrite(red);
+    ledRed.pwmWrite(red);
     ledGreen.pwmWrite(green);
     ledBlue.pwmWrite(blue);
-    ledWhite.pwmWrite(white);*/
+    ledWhite.pwmWrite(white);
 
     return true;
 }
 
 function setRed(red) {
-    return setColor(red, currentGreen, currentBlue);
+    return setColor(red, currentGreen, currentBlue, currentWhite);
 }
 
 function setGreen(green) {
-    return setColor(currentRed, green, currentBlue);
+    return setColor(currentRed, green, currentBlue, currentWhite);
 }
 
 function setBlue(blue) {
-    return setColor(currentRed, currentGreen, blue);
+    return setColor(currentRed, currentGreen, blue, currentWhite);
+}
+
+function setWhite(white) {
+    return setColor(currentRed, currentGreen, currentBlue, white);
 }
 
 function setLampPower(power) {
-    //lamp.pwmWrite(255 * power);
+    lamp.pwmWrite(255 * power);
 
     currentLamp = power;
 
@@ -232,7 +236,7 @@ server.route([
             }
         },
         handler: function(request, reply) {
-            setColor(request.payload.red, request.payload.green, request.payload.blue);
+            setColor(request.payload.red, request.payload.green, request.payload.blue, request.payload.white);
             reply("Success");
         }
     },
