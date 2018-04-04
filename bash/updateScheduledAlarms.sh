@@ -12,7 +12,15 @@ ALARMS="$(curl -s "http://localhost:3000/alarms/active" | jq -c '.[]')"
 while read -r line; do
     if [ ! -z "$line" ]; then
         hour=`jq '.Hour' <<< "$line"`
-        hour=$((hour-1))
+        minute=`jq '.Minute' <<< "$line"`
+        minute=$((minute-30))
+        if [ $minute -le -1 ]; then
+            hour=$((hour-1))
+            minute=$((minute+60))
+        fi
+        if [ $minute -le 9 ]; then
+            minute="0$minute"
+        fi
         swapDay=false
         AMPM="AM"
         if [ $hour -le -1 ]; then
@@ -25,10 +33,6 @@ while read -r line; do
             if [ $hour -ge 13 ]; then
                 hour=$((hour-12))
             fi
-        fi
-        minute=`jq '.Minute' <<< "$line"`
-        if [ $minute -le 9 ]; then
-            minute="0$minute"
         fi
         days=`jq -r '.Days' <<< "$line"`
         for (( i=0; i<${#days}; i++ )); do
