@@ -50,6 +50,7 @@
             <label for='red'>Red: </label>
             <input type='number' min='0' max='255' name='red'>
             <input type='submit'>
+        </form>
     </div>
     <div id="changeGreen">
         <h1>Change Green Value</h1>
@@ -57,6 +58,7 @@
             <label for='green'>Green: </label>
             <input type='number' min='0' max='255' name='green'>
             <input type='submit'>
+        </form>
     </div>
     <div id="changeBlue">
         <h1>Change Blue Value</h1>
@@ -64,6 +66,7 @@
             <label for='blue'>Blue: </label>
             <input type='number' min='0' max='255' name='blue'>
             <input type='submit'>
+        </form>
     </div>
     <div id="changeWhite">
         <h1>Change White Value</h1>
@@ -71,6 +74,7 @@
             <label for='white'>White: </label>
             <input type='number' min='0' max='255' name='white'>
             <input type='submit'>
+        </form>
     </div>
 </body>
 </html>
