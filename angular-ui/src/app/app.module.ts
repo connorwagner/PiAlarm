@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { AlarmManagerComponent } from './components/alarm-manager/alarm-manager.component';
 import { LedManagerComponent } from './components/led-manager/led-manager.component';
 import { NavigationHeaderComponent } from './components/navigation-header/navigation-header.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { NavigationHeaderComponent } from './components/navigation-header/naviga
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
