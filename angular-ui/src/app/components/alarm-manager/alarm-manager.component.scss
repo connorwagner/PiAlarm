@@ -6,10 +6,19 @@ div.menu {
   justify-content: center;
   align-items: center;
 
-  font-size: 2rem;
+  font-size: 1.5rem;
+
+  > div {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+
+    padding: 1rem;
+  }
 
   mat-icon {
-    $iconSize: 3rem;
+    $iconSize: 2rem;
     font-size: $iconSize;
     width: $iconSize;
     height: $iconSize;

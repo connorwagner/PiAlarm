@@ -27,6 +27,14 @@ export class AlarmManagerComponent implements OnInit {
       .subscribe(this.updateAlarms);
   }
 
+  public readonly stopAlarm = (): void => {
+    this.alarmService
+      .stopAlarm()
+      .pipe(
+        take(1))
+      .subscribe();
+  }
+
   public readonly deleteAlarm = (alarm: Alarm): void => {
     this.menuActionClicked();
 

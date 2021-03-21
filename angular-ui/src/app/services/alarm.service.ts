@@ -49,6 +49,14 @@ export class AlarmService {
         { responseType: 'text' })
       .pipe(
         map(() => { }));
+
+  public readonly stopAlarm = (): Observable<void> =>
+    this.httpClient
+      .delete(
+        `${this.apiBaseUrl}/speaker`,
+        { responseType: 'text' })
+      .pipe(
+        map(() => { }));
 }
 
 const mapAlarm = (responseArray: AlarmResponse[]): Alarm[] =>

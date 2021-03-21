@@ -1,7 +1,13 @@
 <div>
-  <div class="menu" [routerLink]="'add-alarm'">
-    <mat-icon>alarm_add</mat-icon>
-    Add alarm
+  <div class="menu">
+    <div [routerLink]="'add-alarm'">
+      <mat-icon>alarm_add</mat-icon>
+      Add alarm
+    </div>
+    <div (click)="stopAlarm()">
+      <mat-icon>snooze</mat-icon>
+      Stop alarm
+    </div>
   </div>
   <ul *ngIf="(alarms$ | async) as alarms" class="alarm-list">
     <li *ngFor="let alarm of alarms; index as idx" [class.active]="alarm.active">
