@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Alarm } from '../models/alarm';
-import { Day } from '../models/day';
+import { allDays, Day } from '../models/day';
 
 @Injectable({
   providedIn: 'root'
@@ -22,13 +22,31 @@ export class AlarmService {
 
   public readonly toggleAlarmActive = (alarm: Alarm): Observable<void> =>
     this.httpClient
-      .put(`${this.apiBaseUrl}/alarms/${alarm.id}`, {}, { responseType: 'text' })
+      .put(
+        `${this.apiBaseUrl}/alarms/${alarm.id}`,
+        {},
+        { responseType: 'text' })
       .pipe(
         map(() => { }));
 
   public readonly deleteAlarm = (alarm: Alarm): Observable<void> =>
     this.httpClient
-      .delete(`${this.apiBaseUrl}/alarms/${alarm.id}`, { responseType: 'text' })
+      .delete(
+        `${this.apiBaseUrl}/alarms/${alarm.id}`,
+        { responseType: 'text' })
+      .pipe(
+        map(() => { }));
+
+  public readonly createAlarm = (alarm: Alarm): Observable<void> =>
+    this.httpClient
+      .post(
+        `${this.apiBaseUrl}/alarms`,
+        {
+          days: alarm.days.map(day => day.letter).reduce((acc, cur) => `${acc}${cur}`),
+          hour: alarm.hour,
+          minute: alarm.minute
+        },
+        { responseType: 'text' })
       .pipe(
         map(() => { }));
 }
@@ -46,17 +64,7 @@ const mapDays = (days: string): Day[] =>
   days
     .split('')
     .map(char =>
-      dayLookup.find(day => day.letter === char.toUpperCase())!);
-
-const dayLookup: Day[] = [
-  { name: 'Monday', letter: 'M' },
-  { name: 'Tuesday', letter: 'T' },
-  { name: 'Wednesday', letter: 'W' },
-  { name: 'Thursday', letter: 'R' },
-  { name: 'Friday', letter: 'F' },
-  { name: 'Saturday', letter: 'S' },
-  { name: 'Sunday', letter: 'U' },
-];
+      allDays.find(day => day.letter === char.toUpperCase())!);
 
 interface AlarmResponse {
   ID: number;

@@ -1,8 +1,12 @@
 <div>
+  <div class="menu" [routerLink]="'add-alarm'">
+    <mat-icon>alarm_add</mat-icon>
+    Add alarm
+  </div>
   <ul *ngIf="(alarms$ | async) as alarms" class="alarm-list">
     <li *ngFor="let alarm of alarms; index as idx" [class.active]="alarm.active">
       <div (click)="toggleActive(alarm)">
-        <mat-icon class="alarm-icon">alarm</mat-icon>
+        <mat-icon class="alarm-icon">{{alarm.active ? 'alarm_on' : 'alarm_off'}}</mat-icon>
       </div>
       <div>
         {{formatTimeString(alarm.hour, alarm.minute)}}

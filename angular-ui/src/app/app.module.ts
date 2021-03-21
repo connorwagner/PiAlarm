@@ -8,19 +8,23 @@ import { LedManagerComponent } from './components/led-manager/led-manager.compon
 import { NavigationHeaderComponent } from './components/navigation-header/navigation-header.component';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
+import { AddAlarmComponent } from './components/alarm-manager/add-alarm/add-alarm.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     AlarmManagerComponent,
     LedManagerComponent,
-    NavigationHeaderComponent
+    NavigationHeaderComponent,
+    AddAlarmComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatIconModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

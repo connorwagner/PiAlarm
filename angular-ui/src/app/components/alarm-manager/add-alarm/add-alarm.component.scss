@@ -1,0 +1,10 @@
+form {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+
+  > * {
+    margin: 1rem;
+  }
+}

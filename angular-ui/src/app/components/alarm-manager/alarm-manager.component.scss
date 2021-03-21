@@ -1,5 +1,23 @@
 @import "../../../styles.scss";
 
+div.menu {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 2rem;
+
+  mat-icon {
+    $iconSize: 3rem;
+    font-size: $iconSize;
+    width: $iconSize;
+    height: $iconSize;
+
+    margin-right: 0.5rem;
+  }
+}
+
 ul.alarm-list {
   margin: 0;
   padding: 1rem;
