@@ -1,8 +1,15 @@
 <div>
-  <ul *ngIf="(alarms$ | async) as alarms">
+  <ul *ngIf="(alarms$ | async) as alarms" class="alarm-list">
     <li *ngFor="let alarm of alarms" [class.active]="alarm.active">
       <mat-icon>alarm</mat-icon>
-      {{formatTimeString(alarm.hour, alarm.minute)}}
+      <div>
+        {{formatTimeString(alarm.hour, alarm.minute)}}
+        <ul class="day-list">
+          <li *ngFor="let day of alarm.days">
+            {{day.name}}
+          </li>
+        </ul>
+      </div>
     </li>
   </ul>
 </div>

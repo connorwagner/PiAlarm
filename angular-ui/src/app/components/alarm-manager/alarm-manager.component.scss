@@ -1,6 +1,6 @@
 @import "../../../styles.scss";
 
-ul {
+ul.alarm-list {
   margin: 1rem;
   padding: 0;
   width: 100%;
@@ -37,6 +37,26 @@ ul {
     &.active {
       mat-icon {
         color: $color1;
+      }
+    }
+
+    ul.day-list {
+      margin: 0rem;
+      padding: 0;
+
+      display: flex;
+      flex-flow: row wrap;
+      align-items: center;
+      justify-content: space-evenly;
+
+      li {
+        font-size: 0.75rem;
+
+        margin: 0.25rem;
+
+        &:first-child {
+          margin-left: 0;
+        }
       }
     }
   }
