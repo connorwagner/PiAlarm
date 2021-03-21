@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Alarm } from '../models/alarm';
 import { Day } from '../models/day';
@@ -14,11 +14,17 @@ export class AlarmService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getAlarms = (): Observable<Alarm[]> =>
+  public readonly getAlarms = (): Observable<Alarm[]> =>
     this.httpClient
       .get<AlarmResponse[]>(`${this.apiBaseUrl}/alarms`)
       .pipe(
         map<AlarmResponse[], Alarm[]>(mapAlarm));
+
+  public readonly toggleAlarmActive = (alarm: Alarm): Observable<void> =>
+    this.httpClient
+      .put(`${this.apiBaseUrl}/alarms/${alarm.id}`, {}, { responseType: 'text' })
+      .pipe(
+        map(() => { }));
 }
 
 const mapAlarm = (responseArray: AlarmResponse[]): Alarm[] =>

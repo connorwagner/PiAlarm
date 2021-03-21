@@ -1,7 +1,9 @@
 <div>
   <ul *ngIf="(alarms$ | async) as alarms" class="alarm-list">
-    <li *ngFor="let alarm of alarms" [class.active]="alarm.active">
-      <mat-icon class="alarm-icon">alarm</mat-icon>
+    <li *ngFor="let alarm of alarms; index as idx" [class.active]="alarm.active">
+      <div (click)="toggleActive(alarm)">
+        <mat-icon class="alarm-icon">alarm</mat-icon>
+      </div>
       <div>
         {{formatTimeString(alarm.hour, alarm.minute)}}
         <ul class="day-list">
@@ -10,7 +12,9 @@
           </li>
         </ul>
       </div>
-      <mat-icon class="actions-icon">more_vert</mat-icon>
+      <div>
+        <mat-icon class="actions-icon">more_vert</mat-icon>
+      </div>
     </li>
   </ul>
 </div>
