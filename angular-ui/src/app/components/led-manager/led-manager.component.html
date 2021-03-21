@@ -1,1 +1,19 @@
-<p>led-manager works!</p>
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <label>
+    Red:
+    <input type="range" required min="0" max="255" formControlName="red" />
+  </label>
+  <label>
+    Green:
+    <input type="range" required min="0" max="255" formControlName="green" />
+  </label>
+  <label>
+    Blue:
+    <input type="range" required min="0" max="255" formControlName="blue" />
+  </label>
+  <label>
+    White:
+    <input type="range" required min="0" max="255" formControlName="white" />
+  </label>
+  <button type="submit" [disabled]="!form.valid">Submit</button>
+</form>
