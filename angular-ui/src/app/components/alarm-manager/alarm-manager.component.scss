@@ -113,13 +113,18 @@ ul.alarm-list {
 
       box-shadow: 5px 5px 5px $color4;
 
+      display: flex;
+      flex-flow: row wrap;
+
       mat-icon.delete {
         $iconSize: 1.5rem;
         font-size: $iconSize;
         width: $iconSize;
         height: $iconSize;
 
-        color: red;
+        margin: 0.5rem;
+
+        color: $color1;
       }
     }
   }
