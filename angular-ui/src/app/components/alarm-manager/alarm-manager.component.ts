@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlarmService } from 'src/app/services/alarm.service';
 
 @Component({
   selector: 'app-alarm-manager',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AlarmManagerComponent implements OnInit {
 
-  constructor() { }
+  public readonly alarms$ = this.alarmService.getAlarms();
 
-  ngOnInit(): void {
+  constructor(private alarmService: AlarmService) { }
+
+  ngOnInit(): void { }
+
+  public readonly formatTimeString = (hour: number, minute: number): string => {
+    const padString = (s: string): string => s.length < 2 ? `0${s}` : s;
+    const isPm = hour >= 12;
+    if (isPm) hour -= 12;
+    if (hour == 0) hour = 12;
+    return `${hour}:${padString(minute.toString())} ${isPm ? 'PM' : 'AM'}`;
   }
 
 }

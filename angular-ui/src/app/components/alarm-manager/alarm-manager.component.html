@@ -1,1 +1,8 @@
-<p>alarm-manager works!</p>
+<div>
+  <ul *ngIf="(alarms$ | async) as alarms">
+    <li *ngFor="let alarm of alarms" [class.active]="alarm.active">
+      <mat-icon>alarm</mat-icon>
+      {{formatTimeString(alarm.hour, alarm.minute)}}
+    </li>
+  </ul>
+</div>
