@@ -25,6 +25,12 @@ export class AlarmService {
       .put(`${this.apiBaseUrl}/alarms/${alarm.id}`, {}, { responseType: 'text' })
       .pipe(
         map(() => { }));
+
+  public readonly deleteAlarm = (alarm: Alarm): Observable<void> =>
+    this.httpClient
+      .delete(`${this.apiBaseUrl}/alarms/${alarm.id}`, { responseType: 'text' })
+      .pipe(
+        map(() => { }));
 }
 
 const mapAlarm = (responseArray: AlarmResponse[]): Alarm[] =>

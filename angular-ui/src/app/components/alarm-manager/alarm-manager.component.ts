@@ -13,6 +13,7 @@ export class AlarmManagerComponent implements OnInit {
   private readonly _alarms$ = new Subject<Alarm[]>();
 
   public readonly alarms$ = this.alarmService.getAlarms().pipe(merge(this._alarms$.asObservable()));
+  public expandedActionsIndex: number = -1;
 
   constructor(private alarmService: AlarmService) { }
 
@@ -24,6 +25,20 @@ export class AlarmManagerComponent implements OnInit {
       .pipe(
         take(1))
       .subscribe(this.updateAlarms);
+  }
+
+  public readonly deleteAlarm = (alarm: Alarm): void => {
+    this.menuActionClicked();
+
+    this.alarmService
+      .deleteAlarm(alarm)
+      .pipe(
+        take(1))
+      .subscribe(this.updateAlarms);
+  }
+
+  private readonly menuActionClicked = (): void => {
+    this.expandedActionsIndex = -1;
   }
 
   private readonly updateAlarms = (): void => {
@@ -42,4 +57,7 @@ export class AlarmManagerComponent implements OnInit {
     return `${hour}:${padString(minute.toString())} ${isPm ? 'PM' : 'AM'}`;
   }
 
+  public readonly showActionsForRow = (index: number): void => {
+    this.expandedActionsIndex = this.expandedActionsIndex === index ? -1 : index;
+  }
 }

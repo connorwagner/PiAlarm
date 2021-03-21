@@ -12,8 +12,13 @@
           </li>
         </ul>
       </div>
-      <div>
+      <div (click)="showActionsForRow(idx)">
         <mat-icon class="actions-icon">more_vert</mat-icon>
+      </div>
+      <div *ngIf="expandedActionsIndex == idx" class="actions">
+        <div (click)="deleteAlarm(alarm)">
+          <mat-icon class="delete">delete</mat-icon>
+        </div>
       </div>
     </li>
   </ul>
