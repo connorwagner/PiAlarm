@@ -1,10 +1,10 @@
 @import "../../../styles.scss";
 
 ul.alarm-list {
-  margin: 1rem;
-  padding: 0;
-  width: 100%;
-  height: 100%;
+  margin: 0;
+  padding: 1rem;
+  box-sizing: border-box;
+  width: 100vw;
 
   list-style: none;
 
@@ -14,34 +14,45 @@ ul.alarm-list {
   justify-content: center;
 
   li {
-    $iconSize: 3rem;
-
-    margin: 0.5rem;
+    margin: 0.5rem 0;
 
     font-size: 1.5rem;
 
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
 
-    mat-icon {
+    mat-icon.alarm-icon {
+      $iconSize: 3rem;
       font-size: $iconSize;
       width: $iconSize;
       height: $iconSize;
+
       color: $color3;
 
       margin-right: 0.5rem;
     }
 
     &.active {
-      mat-icon {
+      mat-icon.alarm-icon {
         color: $color1;
       }
     }
 
+    mat-icon.actions-icon {
+      $iconSize: 1rem;
+      font-size: $iconSize;
+      width: $iconSize;
+      height: $iconSize;
+
+      color: $color3;
+
+      margin-left: 0.5rem;
+    }
+
     ul.day-list {
-      margin: 0rem;
+      margin: 0;
       padding: 0;
 
       display: flex;

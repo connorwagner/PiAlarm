@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Day } from 'src/app/models/day';
 import { AlarmService } from 'src/app/services/alarm.service';
 
 @Component({

@@ -1,7 +1,7 @@
 <div>
   <ul *ngIf="(alarms$ | async) as alarms" class="alarm-list">
     <li *ngFor="let alarm of alarms" [class.active]="alarm.active">
-      <mat-icon>alarm</mat-icon>
+      <mat-icon class="alarm-icon">alarm</mat-icon>
       <div>
         {{formatTimeString(alarm.hour, alarm.minute)}}
         <ul class="day-list">
@@ -10,6 +10,7 @@
           </li>
         </ul>
       </div>
+      <mat-icon class="actions-icon">more_vert</mat-icon>
     </li>
   </ul>
 </div>
