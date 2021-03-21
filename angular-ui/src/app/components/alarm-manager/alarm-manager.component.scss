@@ -111,6 +111,8 @@ ul.alarm-list {
 
       padding: 1rem;
 
+      box-shadow: 5px 5px 5px $color4;
+
       mat-icon.delete {
         $iconSize: 1.5rem;
         font-size: $iconSize;
