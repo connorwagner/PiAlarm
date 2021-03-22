@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiBaseUrl: 'http://localhost:3000'
+  apiBaseUrl: 'http://cwagneralarmpi.local:3000'
 };
