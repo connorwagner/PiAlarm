@@ -1,0 +1,17 @@
+<nav role='navigation' class="main-nav" id="main-nav">
+  <h1>PiAlarm</h1>
+  <ul id="main-nav-list">
+    <li>
+      <a [routerLink]="['/alarm-manager']" [routerLinkActive]="['active']">
+        <mat-icon>alarm</mat-icon>
+        Alarms
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/led-manager']" [routerLinkActive]="['active']">
+        <mat-icon>lightbulb</mat-icon>
+        LEDs
+      </a>
+    </li>
+  </ul>
+</nav>

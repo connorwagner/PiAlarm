@@ -1,0 +1,16 @@
+/* You can add global styles to this file, and also import other style files */
+$color1: #db4561;
+$color2: #686963;
+$color3: #8aa29e;
+$color4: #3d5467;
+$color5: #f1edee;
+
+html,
+body,
+app-root {
+  margin: 0;
+  padding: 0;
+
+  color: $color4;
+  background-color: $color5;
+}

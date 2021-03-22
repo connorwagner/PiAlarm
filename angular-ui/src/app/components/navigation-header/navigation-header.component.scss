@@ -1,0 +1,65 @@
+@import "../../../styles.scss";
+
+.main-nav {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  background-color: $color5;
+  z-index: 100;
+  border-bottom: 0.15rem solid $color4;
+
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-evenly;
+
+  h1 {
+    margin: 1rem;
+    padding: 0;
+
+    font-size: 3rem;
+  }
+
+  ul {
+    margin: 1rem;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+
+    list-style: none;
+
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  li {
+    display: inline-block;
+
+    a {
+      padding: 0.5rem;
+      font-size: 1.25rem;
+      max-width: 10rem;
+
+      font-weight: bold;
+      text-decoration: none;
+      color: inherit;
+
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: center;
+
+      mat-icon {
+        margin-right: 1rem;
+      }
+    }
+
+    & .active {
+      border: 0.15rem solid $color4;
+      border-radius: 1rem;
+    }
+  }
+}

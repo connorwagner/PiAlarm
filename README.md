@@ -2,36 +2,37 @@
 ## An alarm system on a Pi
 This will run a morning alarm system on a Raspberry Pi.
 
-The system includes an LED strip which will simulate a sunrise for an hour before the alarm is set to go off.
+The system includes an LED strip which will simulate a sunrise for a set amount of time before the alarm is set to go off.
 
 ## Setup
 * Scheduled tasks
     * Add to the superuser's cron jobs (`sudo crontab -e`)
         * `@reboot /absolute/path/to/project/bash/startServer.sh`
         * `*/5 * * * * /absolute/path/to/project/bash/updateScheduledAlarms.sh`
-* Configure nginx to use PHP
-    * Edit `/etc/nginx/sites-enabled/default`
-        * Add `index.php` to the line that resembles `index index.html index.htm;`
-        * Uncomment the following lines
-```
-location ~ \.php$ {
-    include snippets/fastcgi-php.conf;
-    fastcgi_pass unix:/var/run/php5-fpm.sock;
-}
-```
 * Configure MySQL
-   * Create database `Alarm`
-      * Create table `Alarm` with fields
-         * `ID` INT AUTO_INCREMENT (PK)
-         * `Days` VARCHAR(7)
-         * `Hour` INT
-         * `Minute` INT
-         * `Active` BOOLEAN
-      * Create table `User` with fields
-         * `ID` INT AUTO_INCREMENT (PK)
-         * `Username` VARCHAR(150)
-         * `Password` VARCHAR(150)
-         * `Token` VARCHAR(150)
+    * Create user `alarm`:`alarmpassword`
+    * Create database `Alarm`
+        * Create table `Alarm` with fields
+            * `ID` INT AUTO_INCREMENT (PK)
+            * `Days` VARCHAR(7)
+            * `Hour` INT
+            * `Minute` INT
+            * `Active` BOOLEAN
+        * Create table `User` with fields
+            * `ID` INT AUTO_INCREMENT (PK)
+            * `Username` VARCHAR(150)
+            * `Password` VARCHAR(150)
+            * `Token` VARCHAR(150)
+* Environment
+    * Set `ALARM_DURATION` environment variable in `.bashrc`
+        * Alarm duration in minutes
+* API
+    * `npm install`
+* UI
+    * I recommend building the `angular-ui` project on a PC and copying the built files to the Pi
+        * The project takes a very long time to build on pi hardware
+    * Configure a web server to serve built documents
+        * 404s should redirect to index.html
 * Configure alarm tone
     * Place `.wav` or `.mp3` files in the `alarmTones` subdirectory; one of these files will be chosen at random each time the alarm sounds
 * Set up bluetooth speaker connection
@@ -54,11 +55,8 @@ quit
 * System
     * mysql-server
     * nginx
-        * php-fpm
     * pulseaudio
         * pulseaudio-module-bluetooth
-* PHP
-    * php7.0-curl
 * Bash
     * jq
     * at

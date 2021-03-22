@@ -13,7 +13,7 @@ while read -r line; do
     if [ ! -z "$line" ]; then
         hour=`jq '.Hour' <<< "$line"`
         minute=`jq '.Minute' <<< "$line"`
-        minute=$((minute-30))
+        minute=$((minute-$ALARM_DURATION))
         if [ $minute -le -1 ]; then
             hour=$((hour-1))
             minute=$((minute+60))

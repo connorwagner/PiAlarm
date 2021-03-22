@@ -1,0 +1,13 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <label>
+    Time:
+    <input type="time" required formControlName="time" />
+  </label>
+  <label>
+    Active Days:
+    <select multiple required formControlName="days">
+      <option *ngFor="let day of days" [value]="day">{{day.name}}</option>
+    </select>
+  </label>
+  <button type="submit" [disabled]="!form.valid">Submit</button>
+</form>

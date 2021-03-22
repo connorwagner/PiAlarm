@@ -1,0 +1,131 @@
+@import "../../../styles.scss";
+
+div.menu {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 1.5rem;
+
+  > div {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+
+    padding: 1rem;
+  }
+
+  mat-icon {
+    $iconSize: 2rem;
+    font-size: $iconSize;
+    width: $iconSize;
+    height: $iconSize;
+
+    margin-right: 0.5rem;
+  }
+}
+
+ul.alarm-list {
+  margin: 0;
+  padding: 1rem;
+  box-sizing: border-box;
+  width: 100vw;
+
+  list-style: none;
+
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  justify-content: center;
+
+  li {
+    margin: 0.5rem 0;
+
+    font-size: 1.5rem;
+
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+
+    mat-icon.alarm-icon {
+      $iconSize: 3rem;
+      font-size: $iconSize;
+      width: $iconSize;
+      height: $iconSize;
+
+      color: $color3;
+
+      margin-right: 0.5rem;
+    }
+
+    &.active {
+      mat-icon.alarm-icon {
+        color: $color1;
+      }
+    }
+
+    mat-icon.actions-icon {
+      $iconSize: 1rem;
+      font-size: $iconSize;
+      width: $iconSize;
+      height: $iconSize;
+
+      color: $color3;
+
+      margin-left: 0.5rem;
+    }
+
+    ul.day-list {
+      margin: 0;
+      padding: 0;
+
+      display: flex;
+      flex-flow: row wrap;
+      align-items: center;
+      justify-content: space-evenly;
+
+      li {
+        font-size: 0.75rem;
+
+        margin: 0.25rem;
+
+        &:first-child {
+          margin-left: 0;
+        }
+      }
+    }
+
+    div.actions {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      z-index: 1;
+
+      background-color: $color5;
+      border: 0.15rem solid $color4;
+      border-radius: 1rem;
+
+      padding: 1rem;
+
+      box-shadow: 5px 5px 5px $color4;
+
+      display: flex;
+      flex-flow: row wrap;
+
+      mat-icon.delete {
+        $iconSize: 1.5rem;
+        font-size: $iconSize;
+        width: $iconSize;
+        height: $iconSize;
+
+        margin: 0.5rem;
+
+        color: $color1;
+      }
+    }
+  }
+}
