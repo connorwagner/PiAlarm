@@ -147,7 +147,7 @@ server.route([
             }
         },
         handler: function (request, reply) {
-            conn.query("INSERT INTO Alarm (Days, Hour, Minute) VALUES ('" + request.payload.days + "', " + request.payload.hour + ", " + request.payload.minute + ")", function (err, result, fields) {
+            conn.query("INSERT INTO Alarm (Days, Hour, Minute, Active) VALUES ('" + request.payload.days + "', " + request.payload.hour + ", " + request.payload.minute + ", 1)", function (err, result, fields) {
                 if (err) reply(Boom.badRequest());
                 else reply("Success");
             });
