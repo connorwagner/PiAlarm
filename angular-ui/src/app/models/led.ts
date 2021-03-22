@@ -18,7 +18,7 @@ export const mapLedsToObject = (leds: Led[]): Leds => {
   const red = leds.find(led => led.color.toLowerCase() === 'red')?.brightness ?? 0;
   const green = leds.find(led => led.color.toLowerCase() === 'green')?.brightness ?? 0;
   const blue = leds.find(led => led.color.toLowerCase() === 'blue')?.brightness ?? 0;
-  const white = leds.find(led => led.color.toLowerCase() === 'blue')?.brightness ?? 0;
+  const white = leds.find(led => led.color.toLowerCase() === 'white')?.brightness ?? 0;
 
   return { red, green, blue, white };
 }
